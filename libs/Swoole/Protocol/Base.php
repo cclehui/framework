@@ -11,8 +11,9 @@ abstract class Base implements Swoole\IFace\Protocol
     public $default_port;
     public $default_host;
     /**
-     * @var \Swoole\IFace\Log
+     * @var \Swoole\Log
      */
+    //@var \Swoole\IFace\Log
     public $log;
 
     /**

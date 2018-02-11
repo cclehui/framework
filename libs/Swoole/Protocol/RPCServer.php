@@ -86,6 +86,7 @@ class RPCServer extends Base implements Swoole\IFace\Protocol
 
     function onReceive($serv, $fd, $reactor_id, $data)
     {
+        $this->log->trace("onReceive:" . date("Y-m-d H:i:s"));
         if (!isset($this->_buffer[$fd]) or $this->_buffer[$fd] === '')
         {
             //超过buffer区的最大长度了
@@ -151,6 +152,7 @@ class RPCServer extends Base implements Swoole\IFace\Protocol
             //socket信息
             self::$clientEnv['_socket'] = $this->server->connection_info($_header['fd']);
             $response = $this->call($request, $_header);
+            $this->log->info("request:" . json_encode($request) . "\tresponse:" . json_encode($response));
             //发送响应
             $ret = $this->server->send($fd, self::encode($response, $_header['type'], $_header['uid'], $_header['serid']));
             if ($ret === false)
